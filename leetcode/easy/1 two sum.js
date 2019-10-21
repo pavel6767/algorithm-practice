@@ -8,37 +8,23 @@ var twoSum = function(nums, target) {
   let obj = {};
   let res = [];
 
-  let curr,
-    diff,
-    i = 0;
-  while (i < nums.length) {
-    curr = nums[i];
-    diff = target - curr;
+  // loop to make dictionary
+  for (let i = 0; i < nums.length; i++) {
+    if (!obj.hasOwnProperty(nums[i])) {
+      obj[nums[i]] = i;
+    } else if (obj.hasOwnProperty(nums[i]) && target - nums[i] === nums[i]) {
+      return [obj[nums[i]], i];
+    }
   }
-  // for (let i = 0; i < nums.length; i++) {
-  //   curr = nums[i];
-  //   diff = target - curr;
-  //   if (nums.includes(diff)) {
-  //     res.push(nums.indexOf(curr));
 
-  //     res.push(nums.indexOf(diff));
-  //     return res;
-  //   }
-  // }
-  // for (let i = 0; i < nums.length; i++) {
-  //   if (obj.hasOwnProperty(nums[i])) {
-  //     obj[nums[i]] = [obj[nums[i]], nums[i]];
-  //   }
-  //   obj[nums[i]] = i;
-  // }
-  // console.log(obj);
-  // for (let key in obj) {
-  //   if (obj.hasOwnProperty(target - key)) {
-  //     res.push(obj[key]);
-  //     res.push(obj[target - key]);
-  //     break;
-  //   }
-  // }
+  // loop the obj
+  for (let key in obj) {
+    if (obj.hasOwnProperty(target - key)) {
+      res.push(obj[key]);
+      res.push(obj[target - key]);
+      break;
+    }
+  }
 
   return res;
 };
