@@ -91,7 +91,7 @@ var plusOne = function(digits) {
 // };
 
 // Option 3 - turn the array into a number, add, then back to array
-// not so safe, because trusting JS with math
+// maybe not so safe, because trusting JS with math
 
 let input = [9, 9, 9];
 console.log(plusOne(input));
