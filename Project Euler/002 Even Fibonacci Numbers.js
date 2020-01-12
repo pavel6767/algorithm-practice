@@ -46,12 +46,14 @@ function fiboEvenSum(n) {
   return sum;
 }
 
-for (let key in testCases) {
-  console.log(`\n${key} ::: ${testCases[key]}`);
-  if (testCases[key] === fiboEvenSum(key)) {
-    console.log('pass');
-  } else {
-    console.error('fail :: ', fiboEvenSum(key));
+function tester(testCases, call) {
+  for (let key in testCases) {
+    console.log(`\n${key} ::: ${testCases[key]}`);
+    if (testCases[key] === call(key)) {
+      console.log('pass');
+    } else {
+      console.error('fail :: ', call(key));
+    }
   }
 }
-// console.log(fiboEvenSum(10));
+tester(testCases, fiboEvenSum);
