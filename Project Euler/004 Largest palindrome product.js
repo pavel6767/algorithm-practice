@@ -10,26 +10,36 @@ largestPalindromeProduct(3) should return 906609.
 */
 
 function largestPalindromeProduct(n) {
-  let first = Math.pow(10, n) - 1;
-  let second = Math.pow(10, n) - 1;
+  // let first = Math.pow(10, n) - 1;
+  // let second = Math.pow(10, n) - 1;
   let current;
   // debugger;
-  while (first !== 0 && second !== 0) {
-    current = first * second;
-    if (isPalindrome(current)) {
-      return current;
-    } else {
-      second--;
-      // if (first * (second - 1) > (first - 1) * second) {
-      //   second--;
-      // }
-      // else {
-      //   first--;
-      // }
+  // for (let second = first; second > first / 10; second--) {
+  //   current = first * second;
+  //   console.log(current);
+  //   if (isPalindrome(current)) {
+  //     return current;
+  //   } else {
+  //     for (let f = first - 1; f >= second; f--) {
+  //       console.log(current);
+  //       current = f * second;
+  //       if (isPalindrome(current)) {
+  //         return current;
+  //       }
+  //     }
+  //   }
+  // }
+
+  let max = 0;
+  for (let first = Math.pow(10, n) - 1; first > Math.pow(10, n - 1); first--) {
+    for (let second = first; second > Math.pow(10, n - 1); second--) {
+      current = first * second;
+      if (isPalindrome(current) && current > max) {
+        max = current;
+      }
     }
   }
-
-  return null;
+  return max;
 }
 
 function isPalindrome(n) {
@@ -60,23 +70,4 @@ function tester(testCases, call) {
   }
 }
 
-// tester(testCases, largestPalindromeProduct);
-
-(function go() {
-  let first = Math.pow(10, 2) - 1;
-  let second = Math.pow(10, 2) - 1;
-  let current;
-  while (first !== 0 && second !== 0) {
-    current = first * second;
-    console.log('\nfirst :: ', first);
-    console.log('second :: ', second);
-    console.log('product :: ', current);
-    second--;
-    // if (first * (second - 1) > (first - 1) * second) {
-    //     second--;
-    //   }
-    //   else {
-    //     first--;
-    //   }
-  }
-})();
+tester(testCases, largestPalindromeProduct);
