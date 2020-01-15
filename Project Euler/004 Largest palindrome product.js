@@ -12,7 +12,6 @@ largestPalindromeProduct(3) should return 906609.
 function largestPalindromeProduct(n) {
   // let first = Math.pow(10, n) - 1;
   // let second = Math.pow(10, n) - 1;
-  let current;
   // debugger;
   // for (let second = first; second > first / 10; second--) {
   //   current = first * second;
@@ -30,6 +29,7 @@ function largestPalindromeProduct(n) {
   //   }
   // }
 
+  let current;
   let max = 0;
   for (let first = Math.pow(10, n) - 1; first > Math.pow(10, n - 1); first--) {
     for (let second = first; second > Math.pow(10, n - 1); second--) {
