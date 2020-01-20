@@ -11,28 +11,19 @@ smallestMult(13) should return 360360.
 smallestMult(20) should return 232792560.
 
 */
-
+// O(n^2)
 function smallestMult(n) {
-  let res = 1;
-  let track = {};
-
+  let arr = [];
+  let temp;
   for (let curr = 2; curr <= n; curr++) {
-    if (!track.hasOwnProperty(curr) && noDivisors(track, curr)) {
-      track[curr] = true;
-      res *= curr;
+    temp = curr;
+    for (let i = 0; i < arr.length; i++) {
+      temp = temp % arr[i] === 0 ? temp / arr[i] : temp;
     }
+    arr.push(temp);
   }
-  console.log(Object.keys(track));
+  let res = arr.reduce((prev, curr) => prev * curr, 1);
   return res;
-}
-
-function noDivisors(track, curr) {
-  for (let key in track) {
-    if (curr % key === 0) {
-      return false;
-    }
-  }
-  return true;
 }
 
 let testCases = {
