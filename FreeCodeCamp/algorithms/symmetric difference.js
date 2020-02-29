@@ -1,0 +1,36 @@
+/*
+
+Create a function that takes two or more arrays and returns an array of the symmetric difference (△ or ⊕) of the provided arrays.
+
+Given two sets (for example set A = {1, 2, 3} and set B = {2, 3, 4}), the mathematical term "symmetric difference" of two sets is the set of elements which are in either of the two sets, but not in both (A △ B = C = {1, 4}). For every additional symmetric difference you take (say on a set D = {2, 3}), you should get the set with elements which are in either of the two the sets but not both (C △ D = {1, 4} △ {2, 3} = {1, 2, 3, 4}). The resulting array must contain only unique values (no duplicates).
+
+*/
+
+function sym(args) {
+  let aList = [...arguments];
+  let result = aList.reduce((acc, curr) => helper(acc, curr));
+
+  return result;
+}
+
+function helper(arr1, arr2) {
+  let result = new Set();
+
+  let set1 = new Set(arr1);
+  let set2 = new Set(arr2);
+
+  for (let val1 of set1.values()) {
+    for (let val2 of set2.values()) {
+      if (!set2.has(val1)) {
+        result.add(val1);
+      }
+      if (!set1.has(val2)) {
+        result.add(val2);
+      }
+    }
+  }
+  return Array.from(result);
+}
+
+console.log(sym([1, 2, 3], [5, 2, 1, 4]) === [3, 4, 5]);
+console.log(sym([1, 2, 5], [2, 3, 5], [3, 4, 5]));
