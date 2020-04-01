@@ -41,17 +41,18 @@ Output: 4
 // };
 
 /* O(n) */
-var singleNumber = function(nums) {
-  let ref = {};
-  for (let i = 0; i < nums.length; i++) {
-    if (ref.hasOwnProperty(nums[i])) {
-      delete ref[nums[i]];
-    } else {
-      ref[nums[i]] = 1;
-    }
-  }
-  return Number(Object.keys(ref)[0]);
-};
+/* but assuming all other instances will be even */
+// var singleNumber = function(nums) {
+//   let ref = {};
+//   for (let i = 0; i < nums.length; i++) {
+//     if (ref.hasOwnProperty(nums[i])) {
+//       delete ref[nums[i]];
+//     } else {
+//       ref[nums[i]] = 1;
+//     }
+//   }
+//   return Number(Object.keys(ref)[0]);
+// };
 
 let cases = [
   { in: [2, 2, 1], out: 1 },
