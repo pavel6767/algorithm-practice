@@ -23,22 +23,22 @@ Output: 4
  */
 
 /* O(2n) */
-// var singleNumber = function(nums) {
-//   let ref = {};
-//   for (let i = 0; i < nums.length; i++) {
-//     if (ref.hasOwnProperty(nums[i])) {
-//       ref[nums[i]]++;
-//     } else {
-//       ref[nums[i]] = 1;
-//     }
-//   }
+var singleNumber = function(nums) {
+  let ref = {};
+  for (let i = 0; i < nums.length; i++) {
+    if (ref.hasOwnProperty(nums[i])) {
+      ref[nums[i]]++;
+    } else {
+      ref[nums[i]] = 1;
+    }
+  }
 
-//   for (let key in ref) {
-//     if (ref[key] === 1) {
-//       return Number(key);
-//     }
-//   }
-// };
+  for (let key in ref) {
+    if (ref[key] === 1) {
+      return Number(key);
+    }
+  }
+};
 
 /* O(n) */
 /* but assuming all other instances will be even */
@@ -55,17 +55,15 @@ Output: 4
 // };
 
 let cases = [
-  { in: [2, 2, 1], out: 1 },
+  { in: [2, 3, 3, 2, 1, 3], out: 1 },
   { in: [4, 1, 2, 1, 2], out: 4 },
 ];
 
 function tester(cases, cb) {
-  // debugger;
   let current;
   for (let i = 0; i < cases.length; i++) {
     current = cb(cases[i].in);
     console.log(`\n${cases[i].in} ::: ${cases[i].out}`);
-    // if (cases[i].in === current) {
     console.log(cases[i].out === current ? 'pass' : `fail :: , ${current}`);
   }
 }
