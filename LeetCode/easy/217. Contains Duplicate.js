@@ -47,16 +47,5 @@ let cases = [
   { in: [1, 1, 1, 3, 3, 4, 3, 2, 4, 2], out: true },
 ];
 
-function tester(cases, cb) {
-  let current;
-  for (let i = 0; i < cases.length; i++) {
-    current = cb(cases[i].in);
-    console.log(`\n${cases[i].in} ::: ${cases[i].out}`);
-    console.log(
-      JSON.stringify(cases[i].out) === JSON.stringify(current)
-        ? 'pass'
-        : `fail :: ${current}`,
-    );
-  }
-}
+const tester = require('../tester');
 tester(cases, containsDuplicate);

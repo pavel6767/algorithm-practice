@@ -49,12 +49,5 @@ let cases = [
   // { in: [0, 1, 0, 1], out: 4 },
 ];
 
-function tester(cases, cb) {
-  let current;
-  for (let i = 0; i < cases.length; i++) {
-    current = cb(cases[i].in);
-    console.log(`\n${cases[i].in} ::: ${cases[i].out}`);
-    console.log(cases[i].out === current ? 'pass' : `fail :: , ${current}`);
-  }
-}
+const tester = require('../tester');
 tester(cases, findMaxLength);

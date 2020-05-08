@@ -95,19 +95,5 @@ let cases = [
   { in: [4, 3, 2, 1, 2], out: [12, 16, 24, 48, 24] },
 ];
 
-function tester(cases, cb) {
-  let current;
-  let correct = true;
-
-  for (let i = 0; i < cases.length; i++) {
-    current = cb(cases[i].in);
-    current.forEach((val, inx) => {
-      if (val !== cases[i].out[inx]) {
-        correct = false;
-      }
-    });
-    console.log(`\n${cases[i].in} ::: ${cases[i].out}`);
-    console.log(correct ? 'pass' : `fail :: ${current}`);
-  }
-}
+const tester = require('../tester');
 tester(cases, productExceptSelf);

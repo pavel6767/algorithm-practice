@@ -64,16 +64,5 @@ let cases = [
   { in: [4, 9, 5], nums2: [9, 4, 9, 8, 4], out: [4, 9] },
 ];
 
-function tester(cases, cb) {
-  let current;
-  for (let i = 0; i < cases.length; i++) {
-    current = cb(cases[i].in, cases[i].nums2);
-    console.log(`\n${cases[i].in} ::: ${cases[i].out}`);
-    console.log(
-      JSON.stringify(cases[i].out) === JSON.stringify(current)
-        ? 'pass'
-        : `fail :: ${current}`,
-    );
-  }
-}
+const tester = require('../tester');
 tester(cases, intersect);

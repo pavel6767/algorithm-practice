@@ -49,16 +49,5 @@ let cases = [
   { in: [-1, -100, 3, 99], k: 2, out: [3, 99, -1, -100] },
 ];
 
-function tester(cases, cb) {
-  let current;
-  for (let i = 0; i < cases.length; i++) {
-    current = cb(cases[i].in, cases[i].k);
-    console.log(`\n${cases[i].in} ::: ${cases[i].out}`);
-    console.log(
-      JSON.stringify(cases[i].out) === JSON.stringify(current)
-        ? 'pass'
-        : `fail :: ${current}`,
-    );
-  }
-}
+const tester = require('../tester');
 tester(cases, rotate);

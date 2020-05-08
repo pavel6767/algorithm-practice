@@ -48,16 +48,5 @@ let cases = [
   { in: [0, 1, 0, 3, 12], out: [1, 3, 12, 0, 0] },
 ];
 
-function tester(cases, cb) {
-  let current;
-  for (let i = 0; i < cases.length; i++) {
-    current = cb(cases[i].in);
-    console.log(`\n${cases[i].in} ::: ${cases[i].out}`);
-    console.log(
-      JSON.stringify(cases[i].out) === JSON.stringify(current)
-        ? 'pass'
-        : `fail :: ${current}`,
-    );
-  }
-}
+const tester = require('../tester');
 tester(cases, moveZeroes);

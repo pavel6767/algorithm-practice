@@ -66,17 +66,5 @@ let cases = [
     out: secondCase.next.next.next.val,
   },
 ];
-
-function tester(cases, cb) {
-  let current;
-  for (let i = 0; i < cases.length; i++) {
-    current = cb(cases[i].in);
-    console.log(`\n${cases[i].in} ::: ${cases[i].out}`);
-    console.log(
-      JSON.stringify(cases[i].out) === JSON.stringify(current)
-        ? 'pass'
-        : `fail :: ${current}`,
-    );
-  }
-}
+const tester = require('../tester');
 tester(cases, middleNode);

@@ -66,12 +66,5 @@ let cases = [
   { in: [3, 1], in2: 3, out: 0 },
 ];
 
-function tester(cases, cb) {
-  let current;
-  for (let i = 0; i < cases.length; i++) {
-    current = cb(cases[i].in, cases[i].in2);
-    console.log(`\n${cases[i].in} ::: ${cases[i].out}`);
-    console.log(cases[i].out === current ? 'pass' : `fail :: ${current}`);
-  }
-}
+const tester = require('../tester');
 tester(cases, search);

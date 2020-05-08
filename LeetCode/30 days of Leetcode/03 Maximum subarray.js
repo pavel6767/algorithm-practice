@@ -16,7 +16,7 @@ If you have figured out the O(n) solution, try coding another solution using the
  * @param {number[]} nums
  * @return {number}
  */
-var maxSubArray = function(nums) {
+var maxSubArray = function (nums) {
   let currentSum = nums[0];
   let maxSum = nums[0];
 
@@ -31,12 +31,5 @@ var maxSubArray = function(nums) {
 
 let cases = [{ in: [-2, 1, -3, 4, -1, 2, 1, -5, 4], out: 6 }];
 
-function tester(cases, cb) {
-  let current;
-  for (let i = 0; i < cases.length; i++) {
-    current = cb(cases[i].in);
-    console.log(`\n${cases[i].in} ::: ${cases[i].out}`);
-    console.log(cases[i].out === current ? 'pass' : `fail :: , ${current}`);
-  }
-}
+const tester = require('../tester');
 tester(cases, maxSubArray);

@@ -24,7 +24,7 @@ Explanation:
  */
 
 /* O(n) */
-var isHappy = function(n) {
+var isHappy = function (n) {
   let sum = 0,
     curr = 0,
     evaluatedNumber = n;
@@ -57,12 +57,5 @@ let cases = [
   { in: 2, out: false },
 ];
 
-function tester(cases, cb) {
-  let current;
-  for (let i = 0; i < cases.length; i++) {
-    current = cb(cases[i].in);
-    console.log(`\n${cases[i].in} ::: ${cases[i].out}`);
-    console.log(cases[i].out === current ? 'pass' : `fail :: , ${current}`);
-  }
-}
+const tester = require('../tester');
 tester(cases, isHappy);
