@@ -6,25 +6,24 @@
 
 */
 
-var reverse = function(x) {
-  let negative = x < 0 ? -1 : 1;
-  let arr = String(Math.abs(x)).split('');
-
-  let temp;
-
-  for (let i = 0; i < arr.length / 2; i++) {
-    temp = arr[i];
-    arr[i] = arr[arr.length - i - 1];
-    arr[arr.length - i - 1] = temp;
+var reverse = function (x) {
+  const negative = x < 0 ? -1 : 1;
+  let s = Math.abs(x).toString().split('');
+  for (let i = 0; i < s.length / 2; i++) {
+    [[s[i]], [s[s.length - i - 1]]] = [s[s.length - i - 1], s[i]];
   }
 
-  let res = Number(arr.join(''));
-
-  if (res >= Math.pow(2, 31)) {
+  if (Number(s.join('')) >= Math.pow(2, 31)) {
     return 0;
   }
-  return res * negative;
+
+  return Number(s.join('')) * negative;
 };
 
-let input = 1534236469;
-console.log(reverse(input));
+let cases = [
+  { in: 123, out: 321 },
+  { in: 1534236469, out: 0 },
+];
+
+const tester = require('../tester');
+tester(cases, reverse);
