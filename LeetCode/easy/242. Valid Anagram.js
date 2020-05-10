@@ -20,20 +20,16 @@ What if the inputs contain unicode characters? How would you adapt your solution
 */
 
 /*
-  time O(n^2)
-  space O(n)
+  time O(2m +n)
+  space O(m)
 */
-
-/**
- * @param {string} s
- * @return {number}
- */
 
 /**
  * @param {string} s
  * @param {string} t
  * @return {boolean}
  */
+
 var isAnagram = function (s, t) {
   let map = {};
   for (let i = 0; i < t.length; i++) {
@@ -50,14 +46,16 @@ var isAnagram = function (s, t) {
       if (map[s[i]] === 0) {
         delete map[s[i]];
       }
-    }
+    } else return false;
   }
-  return Object.keys(map) === 0;
+
+  return Object.keys(map).length === 0;
 };
 
 let cases = [
   { in: 'anagram', in2: 'nagaram', out: true },
   { in: 'rat', in2: 'car', out: false },
+  { in: 'ab', in2: 'a', out: false },
 ];
 
 const tester = require('../tester');
