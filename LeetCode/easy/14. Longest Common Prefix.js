@@ -18,36 +18,66 @@ All given inputs are in lowercase letters a-z.
 
 */
 
-var longestCommonPrefix = function(strs) {
-  let memo = '';
-  let char;
+// var longestCommonPrefix = function(strs) {
+//   let memo = '';
+//   let char;
 
-  // base cases
+//   // base cases
+//   if (strs.length === 0) {
+//     return memo;
+//   }
+
+//   if (strs.length === 1) {
+//     return strs[0];
+//   }
+
+//   for (let i = 0; i < strs[0].length; i++) {
+//     //loop char of first word
+//     char = strs[0][i];
+
+//     for (let j = 1; j < strs.length; j++) {
+//       //loop arr
+//       if (strs[j][i] !== char) {
+//         return memo;
+//       }
+//       if (j === strs.length - 1) {
+//         memo += char;
+//       }
+//     }
+//   }
+//   return memo;
+// };
+
+var longestCommonPrefix = function (strs) {
   if (strs.length === 0) {
-    return memo;
+    return '';
   }
 
   if (strs.length === 1) {
     return strs[0];
   }
 
-  for (let i = 0; i < strs[0].length; i++) {
-    //loop char of first word
-    char = strs[0][i];
+  let res = '';
 
+  for (let i = 0; i < strs[0].length; i++) {
     for (let j = 1; j < strs.length; j++) {
-      //loop arr
-      if (strs[j][i] !== char) {
-        return memo;
-      }
-      if (j === strs.length - 1) {
-        memo += char;
+      if (strs[0][i] !== strs[j][i]) {
+        return res;
+      } else {
+        if (j === strs.length - 1) {
+          res += strs[0][i];
+        }
       }
     }
   }
-  return memo;
+
+  return res;
 };
 
-let input = ['aca', 'cba'];
+let cases = [
+  { in: ['flower', 'flow', 'flight'], out: 'fl' },
+  { in: ['dog', 'racecar', 'car'], out: '' },
+];
 
-console.log(longestCommonPrefix(input));
+const tester = require('../tester');
+tester.oneInput(cases, longestCommonPrefix);
