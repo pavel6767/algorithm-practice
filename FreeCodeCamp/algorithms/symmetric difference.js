@@ -6,31 +6,140 @@ Given two sets (for example set A = {1, 2, 3} and set B = {2, 3, 4}), the mathem
 
 */
 
-function sym(args) {
-  let aList = [...arguments];
-  let result = aList.reduce((acc, curr) => helper(acc, curr));
+// function sym(args) {
+//   let aList = [...arguments];
+//   let result = aList.reduce((acc, curr) => helper(acc, curr));
 
-  return result;
-}
+//   return result;
+// }
 
-function helper(arr1, arr2) {
-  let result = new Set();
+// function helper(arr1, arr2) {
+//   let result = new Set();
 
-  let set1 = new Set(arr1);
-  let set2 = new Set(arr2);
+//   let set1 = new Set(arr1);
+//   let set2 = new Set(arr2);
 
-  for (let val1 of set1.values()) {
-    for (let val2 of set2.values()) {
-      if (!set2.has(val1)) {
-        result.add(val1);
+//   for (let val1 of set1.values()) {
+//     for (let val2 of set2.values()) {
+//       if (!set2.has(val1)) {
+//         result.add(val1);
+//       }
+//       if (!set1.has(val2)) {
+//         result.add(val2);
+//       }
+//     }
+//   }
+//   return Array.from(result);
+// }
+
+// console.log(sym([1, 2, 3], [5, 2, 1, 4]) === [3, 4, 5]);
+// console.log(sym([1, 2, 5], [2, 3, 5], [3, 4, 5]));
+
+/*
+
+Sentence Reverse
+
+You are given an array of characters arr that consists of sequences of characters separated by space characters. Each space-delimited sequence of characters defines a word.
+
+Implement a function reverseWords that reverses the order of the words in the array in the most efficient manner.
+
+Explain your solution and analyze its time and space complexities.
+
+Example:
+
+input:  arr = [ 'p', 'e', 'r', 'f', 'e', 'c', 't', '  ',
+                'm', 'a', 'k', 'e', 's', '  ',
+                'p', 'r', 'a', 'c', 't', 'i', 'c', 'e' ]
+
+output: [ 'p', 'r', 'a', 'c', 't', 'i', 'c', 'e', '  ',
+          'm', 'a', 'k', 'e', 's', '  ',
+          'p', 'e', 'r', 'f', 'e', 'c', 't' ]
+
+Constraints:
+
+    [time limit] 5000ms
+
+    [input] array.character arr
+        0 ≤ arr.length ≤ 100
+
+    [output] array.character
+
+*/
+
+function reverseWords(arr) {
+  const aux = [];
+  const res = [];
+  let temp = '';
+
+  for (let i = 0; i < arr.length; i++) {
+    if (arr[i] !== ' ') {
+      temp += arr[i];
+      if (i === arr.length - 1) {
+        aux.push(temp);
       }
-      if (!set1.has(val2)) {
-        result.add(val2);
+    } else {
+      if (temp.length !== 0) {
+        aux.push(temp);
+        temp = '';
       }
     }
   }
-  return Array.from(result);
+
+  for (let i = aux.length - 1; i >= 0; i--) {
+    res.push(...aux[i].split(''));
+    if (i !== 0) res.push(' ');
+  }
+  return res;
 }
 
-console.log(sym([1, 2, 3], [5, 2, 1, 4]) === [3, 4, 5]);
-console.log(sym([1, 2, 5], [2, 3, 5], [3, 4, 5]));
+const input = [
+  'p',
+  'e',
+  'r',
+  'f',
+  'e',
+  'c',
+  't',
+  ' ',
+  'm',
+  'a',
+  'k',
+  'e',
+  's',
+  ' ',
+  'p',
+  'r',
+  'a',
+  'c',
+  't',
+  'i',
+  'c',
+  'e',
+];
+
+const output = [
+  'p',
+  'r',
+  'a',
+  'c',
+  't',
+  'i',
+  'c',
+  'e',
+  ' ',
+  'm',
+  'a',
+  'k',
+  'e',
+  's',
+  ' ',
+  'p',
+  'e',
+  'r',
+  'f',
+  'e',
+  'c',
+  't',
+];
+
+console.log(reverseWords(input, output));
