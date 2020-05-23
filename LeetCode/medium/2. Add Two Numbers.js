@@ -87,17 +87,4 @@ function addTwoNumbers(l1, l2) {
   return l1;
 }
 
-let l1 = new ListNode(5);
-l1.next = new ListNode(4);
-l1.next.next = new ListNode(3);
-
-let l2 = new ListNode(5);
-l2.next = new ListNode(6);
-l2.next.next = new ListNode(4);
-
-console.log(345 + 465);
-let p = addTwoNumbers(l1, l2);
-while (p !== null) {
-  console.log(p);
-  p = p.next;
-}
+module.exports = addTwoNumbers;

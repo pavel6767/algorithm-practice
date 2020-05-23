@@ -45,26 +45,33 @@ Explanation: The answer is "wke", with the length of 3.
 //   return max;
 // };
 
-var lengthOfLongestSubstring = function(s) {
-  let left = 0;
-  let max = 0;
-  let map = new Map();
+// var lengthOfLongestSubstring = function(s) {
+//   let left = 0;
+//   let max = 0;
+//   let map = new Map();
 
-  for (let i = 0; i < s.length; i++) {
-    if (map.get(s[i]) >= left) {
-      left = 1 + map.get(s[i]);
-    }
-    map.set(s[i], i);
+//   for (let i = 0; i < s.length; i++) {
+//     if (map.get(s[i]) >= left) {
+//       left = 1 + map.get(s[i]);
+//     }
+//     map.set(s[i], i);
 
-    if (1 + i - left > max) {
-      max = 1 + i - left;
-    }
-  }
-  return max;
-};
+//     if (1 + i - left > max) {
+//       max = 1 + i - left;
+//     }
+//   }
+//   return max;
+// };
 
-// let input = 'abcdacebou';
-// let input = 'abcabcbb';
-let input = 'abba';
+function lengthOfLongestSubstring(s) {
+  
+}
 
-console.log(lengthOfLongestSubstring(input));
+let cases = [
+  { in: "abcabcbb", out: 3 },
+  { in: "bbbbb", out: 1 },
+  { in: "pwwkew", out: 3 },
+];
+
+const tester = require('../tester');
+tester.oneInput(cases, lengthOfLongestSubstring);
