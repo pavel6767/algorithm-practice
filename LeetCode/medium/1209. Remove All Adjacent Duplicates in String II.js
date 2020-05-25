@@ -31,7 +31,7 @@ Example 3:
   given string: s
   return string: res
 
-  iterate str backwards and remove k adjacent equal chars
+  iterate str and remove k adjacent equal chars
     consider adjacency after a removal
 
   let rep = 1
@@ -39,14 +39,15 @@ Example 3:
     curr
     if stack is empty
       push curr
-    match with top of stack
-      rep++
-      push curr
-    no match
-      how deep repetition goes
-      remove this depth from stack
-      reset rep accordingly
 
+    if occur === k
+      pop stack
+      reset k
+      re-eval curr inx in next iteration (i--)
+    else
+      check if peek === curr
+        set occur appropriately
+      push stack
 */
 
 /**
@@ -54,53 +55,61 @@ Example 3:
  * @param {number} k
  * @return {string}
  */
-var removeDuplicates = function (s, k) {
-  let rep = 0;
-  const stack = [];
 
+/*
+t
+  O(4n+k -> n+k -> n)
+s
+  O(3n+k -> n+k -> n)
+ */
+var removeDuplicates = function (s, k) {
+  //3n+k
+  let occur = 0;
+
+  const stack = [];
   const peek = () => stack[stack.length - 1];
 
   for (let i = 0; i < s.length; i++) {
     if (stack.length === 0) {
       stack.push(s[i]);
-      rep++;
-    }
-
-    // if same
-    // check if rep = k-1
-    // pop
-    else {
-      if (rep === k) {
-        while (rep > 0) {
+      occur++;
+    } else {
+      if (occur === k) {
+        while (occur > 0) {
           stack.pop();
-          rep--;
+          occur--;
         }
 
         i--;
-        rep = 0;
+        occur = 0;
 
         if (stack.length === 0) continue;
 
-        rep++;
+        occur++;
         let temp = [stack.pop()];
         while (temp[0] === peek()) {
           temp.push(stack.pop());
-          rep++;
+          occur++;
         }
         while (temp.length > 0) {
           stack.push(temp.pop());
         }
       } else {
+        if (s[i] === peek()) {
+          occur++;
+        } else {
+          occur = 1;
+        }
+
         stack.push(s[i]);
-        rep = 1;
       }
     }
   }
 
-  if (rep === k) {
-    while (rep > 0) {
+  if (occur === k) {
+    while (occur > 0) {
       stack.pop();
-      rep--;
+      occur--;
     }
   }
 
@@ -111,12 +120,4 @@ var removeDuplicates = function (s, k) {
   return res.reverse().join('');
 };
 
-let cases = [
-  { in: 'abcd', in2: 2, out: 'abcd' },
-  { in: 'deeedbbcccbdaa', in2: 3, out: 'aa' },
-  { in: 'pbbcggttciiippooaais', in2: 2, out: 'ps' },
-  { in: 'nnwssswwnvbnnnbbqhhbbbhmmmlllm', in2: 3, out: 'vqh' },
-];
-
-const tester = require('../tester');
-tester.twoInput(cases, removeDuplicates);
+module.exports = removeDuplicates;

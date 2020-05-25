@@ -6,7 +6,7 @@ let cases = [
   { in: 'pwwkew', out: 3 },
 ];
 
-describe('3. lengthOfLongestSubstring', () => {
+describe('med 3. lengthOfLongestSubstring', () => {
   for (let c of cases) {
     test(c.in, () => {
       expect(lengthOfLongestSubstring(c.in)).toBe(c.out);

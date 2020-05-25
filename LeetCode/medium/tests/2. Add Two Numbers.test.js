@@ -5,7 +5,7 @@ function ListNode(val) {
   this.next = null;
 }
 
-describe('2. addTwoNumbers', () => {
+describe('med 2. addTwoNumbers', () => {
   test('adding 345 + 465 = 810', () => {
     let l1 = new ListNode(5);
     l1.next = new ListNode(4);

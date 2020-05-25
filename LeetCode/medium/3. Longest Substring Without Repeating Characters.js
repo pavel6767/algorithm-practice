@@ -63,10 +63,4 @@ var lengthOfLongestSubstring = function (s) {
   return max;
 };
 
-let cases = [
-  { in: 'abcabcbb', out: 3 },
-  { in: 'bbbbb', out: 1 },
-  { in: 'pwwkew', out: 3 },
-];
-
 module.exports = lengthOfLongestSubstring;
