@@ -40,17 +40,44 @@ for (int i = 0; i < len; i++) {
  * @param {number[]} nums
  * @return {number}
  */
-var removeDuplicates = function(nums) {
-  for (let i = 0; i < nums.length; i++) {
-    if (nums[i] === nums[i + 1]) {
-      nums.splice(i + 1, 1);
-      i--;
-    }
-  }
-  return nums;
-};
+// var removeDuplicates = function(nums) {
+//   for (let i = 0; i < nums.length; i++) {
+//     if (nums[i] === nums[i + 1]) {
+//       nums.splice(i + 1, 1);
+//       i--;
+//     }
+//   }
+//   return nums;
+// };
 
 // var removeDuplicates = (nums) => nums.filter((el, inx, self) => el !== self[inx + 1]).length;
 
-let input = [0, 0, 1, 1, 1, 2, 2, 3, 3, 4]; // = 5
-console.log(removeDuplicates(input));
+/*
+t O(2n)
+s O(1)
+*/
+var removeDuplicates = function(nums) {
+  let j = 0,
+      popCount=nums.length-1
+  
+  for(let i=1; i<nums.length; i++) {
+      if(nums[i] !== nums[j]) {
+          j++
+          popCount--
+          [nums[j],nums[i]] = [nums[i],nums[j]]
+      } 
+  }
+  while(popCount>0) {
+      nums.pop()
+      popCount--
+  }
+  return nums.length
+};
+
+let cases = [
+  { in: [0, 0, 1, 1, 1, 2, 2, 3, 3, 4], out: [0, 1, 2, 3, 4] },
+  { in: [1,1,2], out: [1,2] },
+];
+
+const tester = require('../tester');
+tester.oneInput(cases, removeDuplicates);
