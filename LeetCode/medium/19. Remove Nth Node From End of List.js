@@ -37,34 +37,64 @@ function ListNode(val, next) {
  */
 
 var removeNthFromEnd = function (head, n) {
-  if (head.next === null) return null;
-
-  let p = head;
-  let depth = 1;
-
-  while (p.next != null) {
-    p = p.next;
-    depth++;
+  if(!head) return null
+  
+  let p1 = head,
+      p2 = head
+  
+  for(let i=1; i<n; i++) {
+      if(!p2) return null
+      p2 = p2.next
   }
-
-  if (n === depth) {
-    head = head.next;
-  } else {
-    p = head;
-    for (let i = 1; i < depth - n; i++) {
-      p = p.next;
-    }
-
-    if (p.next.next != null) {
-      p.next.val = p.next.next.val;
-      p.next.next = p.next.next.next;
-    } else {
-      p.next = null;
-    }
+  
+  let prev = new ListNode(null)
+  while(p2.next) {
+      prev = p1
+      p1 = p1.next
+      p2 = p2.next
   }
-
-  return head;
+  
+  prev.next = p1.next
+  
+  return p1 == head ? prev.next : head
 };
+/*
+1->2
+p1 1
+p2 2
+prev null
+
+*/
+
+// var removeNthFromEnd = function (head, n) {
+//   if (head.next === null) return null;
+
+//   let p = head;
+//   let depth = 1;
+
+//   while (p.next != null) {
+//     p = p.next;
+//     depth++;
+//   }
+
+//   if (n === depth) {
+//     head = head.next;
+//   } else {
+//     p = head;
+//     for (let i = 1; i < depth - n; i++) {
+//       p = p.next;
+//     }
+
+//     if (p.next.next != null) {
+//       p.next.val = p.next.next.val;
+//       p.next.next = p.next.next.next;
+//     } else {
+//       p.next = null;
+//     }
+//   }
+
+//   return head;
+// };
 
 let a = new ListNode(1);
 a.next = new ListNode(2);

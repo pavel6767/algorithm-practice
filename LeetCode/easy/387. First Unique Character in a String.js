@@ -48,17 +48,22 @@ var firstUniqChar = function (s) {
   // }
   // return lowestUnique === Infinity ? -1 : lowestUnique;
 
-  for (let i = 0; i < s.length; i++) {
-    for (let j = 0; j < s.length; j++) {
-      if (s[j] === s[i] && i !== j) {
-        break;
+  let h = {}
+  let stack = []
+  let earliestUnique = -1
+  for(let i = s.length-1; i>=0; i--) {
+      if(!h.hasOwnProperty(s[i])) {
+          h[s[i]] = i
+          earliestUnique = i
+          stack.push(i)
+      } else {
+          // if(s[earliestUnique] === s[i]) earliestUnique = -1 
+          if(stack.length > 0 && stack[stack.length-1] === s[i]) {
+            stack.pop()
+          }
       }
-      if (j === s.length - 1) {
-        return i;
-      }
-    }
   }
-  return -1;
+  return stack.length === 0 ? -1 : stack[stack.length-1]
 };
 
 let cases = [
@@ -70,4 +75,4 @@ let cases = [
 ];
 
 const tester = require('../tester');
-tester(cases, firstUniqChar);
+tester.oneInput(cases, firstUniqChar);
