@@ -60,31 +60,52 @@ function ListNode(val) {
       modify iter condition
     null list
 */
-function addTwoNumbers(l1, l2) {
-  if (!l1) return l2;
+// function addTwoNumbers(l1, l2) {
+//   if (!l1) return l2;
 
-  let carry = false;
-  let p1 = l1,
-    p2 = l2;
+//   let carry = false;
+//   let p1 = l1,
+//     p2 = l2;
 
-  while (p1 && p2) {
-    p1.val += p2.val;
-    if (carry) p1.val++;
-    if (p1.val > 9) {
-      carry = true;
-      p1.val = p1.val % 10;
-    } else {
-      carry = false;
-    }
-    p1 = p1.next;
-    p2 = p2.next;
+//   while (p1 && p2) {
+//     p1.val += p2.val;
+//     if (carry) p1.val++;
+//     if (p1.val > 9) {
+//       carry = true;
+//       p1.val = p1.val % 10;
+//     } else {
+//       carry = false;
+//     }
+//     p1 = p1.next;
+//     p2 = p2.next;
+//   }
+
+//   if (p2) {
+//     p1.next = p2;
+//   }
+
+//   return l1;
+// }
+
+var addTwoNumbers = function(l1, l2, carry = false) {
+  if(!l1 && !l2) return carry ? new ListNode(1) : null
+  if(!carry) {
+    if(!l1) return l2
+    if(!l2) return l1
   }
 
-  if (p2) {
-    p1.next = p2;
+  let currNode = l1? l1:l2
+  currNode.val = (l1? l1.val:0) + (l2?l2.val:0) + (carry?1:0)
+  
+  if(currNode.val>9) {
+      currNode.val %=10
+  } else {
+      carry = false
   }
-
-  return l1;
+  
+  currNode.next = addTwoNumbers(l1?l1.next:null, l2?l2.next:null, carry)
+  
+  return currNode
 }
 
 module.exports = addTwoNumbers;

@@ -125,8 +125,58 @@ function Node(val, prev, next, child) {
       push .next
       push .child
 */
-var flatten = function (head) {
-  let stack = [head];
+/*
+    trav list (node)
+        if node has child
+            make child the next of node and
+            last tail child prev of original next
+            childN = recur(node.child)
+            childN.prev = node
+            stack.push(node.next)
+            node = node.next
+    
+    stack [head]
+    res = (null)
+    prev = res
+    curr = null
+    while(curr || stack.len>0) {
+        if(!curr) curr = stack.pop()
+        if(curr has child)
+            stack.push(curr.next)
+            child.prev = curr
+            curr.next = child
+        prev = curr
+        curr = curr.next
+    }
+    return res.next   
+*/
+/*
+t O(n)
+s O(n)
+*/
+var flatten = function(head) {
+  if(!head) return null
+  
+  const stack = []
+  let prev = null,
+      curr = head;
+  while(curr || stack.length >0) {
+      if(!curr) {
+          curr = stack.pop()
+          prev.next = curr
+          curr.prev = prev
+      }
+      if(curr.child) {
+          if(curr.next) stack.push(curr.next)
+          curr.child.prev = curr
+          curr.next = curr.child
+          curr.child = null
+      }
+      
+      prev = curr
+      curr = curr.next
+  }
+  return head
 };
 
 // val, prev next child
