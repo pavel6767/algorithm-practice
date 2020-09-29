@@ -39,9 +39,28 @@ function TreeNode(val, left, right) {
         return whichever child has more depth
     
 */
+// var maxDepth = function(root) {
+//   if(!root) return 0
+//   if(!root.left && !root.right) return 1
+  
+//   return Math.max(maxDepth(root.right), maxDepth(root.left)) + 1
+// };
+/*
+  stack
+  loop
+    push(n)
+    count++
+    n = n.l
+  
+
+*/
 var maxDepth = function(root) {
   if(!root) return 0
   if(!root.left && !root.right) return 1
   
-  return Math.max(maxDepth(root.right), maxDepth(root.left)) + 1
+
 };
+let l1 = new TreeNode(3, new TreeNode(9), new TreeNode(20, new TreeNode(15), new TreeNode(7)));
+
+
+console.log(maxDepth(l1) === 3);

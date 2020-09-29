@@ -71,10 +71,3 @@ var isSameTree = function(p, q) {
 // l2.right = new TreeNode(3);
 
 /* false */
-let l1 = new TreeNode(1);
-l1.left = new TreeNode(2);
-
-let l2 = new TreeNode(1);
-l2.right = new TreeNode(2);
-
-console.log(isSameTree(l1, l2));

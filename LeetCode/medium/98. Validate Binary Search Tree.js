@@ -54,26 +54,39 @@ recurse left and right
     O(n)
   s
     O(n)
-
 */
 
-var isValidBST = function (root, left = null, right = null) {
-  if (!root) return true;
+// var isValidBST = function (root, left = null, right = null) {
+//   if (!root) return true;
 
-  if (
-    (right != null && root.val >= right) ||
-    (left != null && root.val <= left)
-  ) {
-    return false;
-  }
+//   if (
+//     (right != null && root.val >= right) ||
+//     (left != null && root.val <= left)
+//   ) {
+//     return false;
+//   }
 
-  if (
-    !isValidBST(root.left, left, root.val) ||
-    !isValidBST(root.right, root.val, right)
-  )
-    return false;
+//   if (
+//     !isValidBST(root.left, left, root.val) ||
+//     !isValidBST(root.right, root.val, right)
+//   )
+//     return false;
 
-  return true;
+//   return true;
+// };
+
+var isValidBST = function(root, min = null, max = null) {
+  if(!root) return true
+  
+  if(min && min >= root.val) return false
+  if(max && max <= root.val) return false
+  
+  // if(root.left && (!isValidBST(root.left, min, max? max:root.val) || root.left.val >= root.val)) return false
+  // if(root.right && (!isValidBST(root.right, min?min:root.val, max) || root.right.val <= root.val)) return false
+  if(root.left && (!isValidBST(root.left, min, root.val) || root.left.val >= root.val)) return false
+  if(root.right && (!isValidBST(root.right, root.val, max) || root.right.val <= root.val)) return false
+  
+  return true
 };
 
 let l = new TreeNode(2);
@@ -87,11 +100,22 @@ l2.right = new TreeNode(4, new TreeNode(3), new TreeNode(6));
 let l3 = new TreeNode(1, new TreeNode(1), null);
 let l4 = new TreeNode(0, null, new TreeNode(-1));
 
+let l5 = new TreeNode(3,
+  new TreeNode(1,
+    new TreeNode(0),
+    new TreeNode(2,
+      null, 
+      new TreeNode(3))),
+  new TreeNode(5,
+    new TreeNode(4),
+    new TreeNode(6)))
+
 let cases = [
   { in: l, out: true },
   { in: l2, out: false },
   { in: l3, out: false },
   { in: l4, out: false },
+  { in: l5, out: false },
 ];
 
 const tester = require('../tester');

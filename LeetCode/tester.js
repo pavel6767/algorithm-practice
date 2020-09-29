@@ -1,12 +1,15 @@
 const FgGreen = '\x1b[32m';
 const FgRed = '\x1b[31m';
 
+// console.log(FgGreen, 'green')
+// console.log(FgRed, 'red')
+
 function logger({ input, out, current, i }) {
   const pass = JSON.stringify(out) === JSON.stringify(current);
-  const color = pass === true ? FgGreen : FgRed;
+  const color = pass ? FgGreen : FgRed;
 
   console.log(`______________________________________`);
-  console.log(color, `\ncase ${i + 1}`);
+  console.log(color, `\ncase ${i + 1} : ${pass?'pass':'fail'}`);
   console.log(` in: ${JSON.stringify(input)}`);
   console.log(`out: ${JSON.stringify(out)}`);
   if (pass === false) {
@@ -14,7 +17,7 @@ function logger({ input, out, current, i }) {
   }
 }
 
-module.exports = {
+const tester = {
   oneInput: (cases, cb) => {
     let current;
 
@@ -43,3 +46,5 @@ module.exports = {
     }
   },
 };
+
+module.exports = tester
