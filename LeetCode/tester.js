@@ -10,8 +10,8 @@ function logger({ input, out, current, i }) {
 
   console.log(`______________________________________`);
   console.log(color, `\ncase ${i + 1} : ${pass?'pass':'fail'}`);
-  console.log(` in: ${JSON.stringify(input)}`);
-  console.log(`out: ${JSON.stringify(out)}`);
+  console.log(`   input: ${JSON.stringify(input)}`);
+  console.log(`expected: ${JSON.stringify(out)}`);
   if (pass === false) {
     console.log(color, `    ${JSON.stringify(current)}`);
   }

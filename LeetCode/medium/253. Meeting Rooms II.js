@@ -18,6 +18,30 @@ Example2
 */
 
 /*
+  list meeting times
+  have room for each meeting
+  free room once meeting ends
+  record running max of rooms needed
+
+  [(0,30),(5,10),(15,20)]
+
+  sort by start time
+
+  meeting list = []
+  iter meetings
+      if meeting list not empty && earliest ending meeting is before current start time
+        merge meetings [start, currentEnd]
+      else
+        add current meeting to list
+      sort by earliest end time
+
+  heap [max @ top of heap]
+  iter meetings
+    if top of heap 
+
+*/
+
+/*
 [(0,30),(5,10),(15,20)]
 sort by start time
 record
@@ -98,5 +122,20 @@ let cases = [
   },
 ];
 
+function callback(meetings) {
+  meetings = meetings.sort((a,b) => a[0]-b[0])
+  let rooms = []
+  for(let meet of meetings) {
+    if(!rooms.length || rooms[rooms.length-1][1] > meet[0]) {
+      rooms.push(meet)
+    } else {
+      rooms[rooms.length-1][1] = meet[1]
+    }
+    rooms = rooms.sort((a,b) => b[1]-a[1])
+  }
+  return rooms.length
+}
+
 const tester = require('../tester');
-tester.oneInput(cases, minMeetingRooms);
+// tester.oneInput(cases, minMeetingRooms);
+tester.oneInput(cases, callback);

@@ -45,7 +45,7 @@ map
 
 */
 
-function Node(key, value, prev, next) {
+function ListNode(key, value, prev, next) {
   this.key = key;
   this.value = value;
   this.prev = prev;
@@ -55,65 +55,77 @@ function Node(key, value, prev, next) {
 /**
  * @param {number} capacity
  */
-var LRUCache = function (capacity) {
-  this.map = new Map();
-  this.head = new Node(null);
-  this.tail = new Node(null);
-
-  this.capacity = capacity;
-  this.head.next = this.tail;
-  this.tail.prev = this.head;
+var LRUCache = function(capacity) {
+  this.capacity = capacity
+  this.tail = new ListNode(null)
+  this.head = new ListNode(null)
+  this.map = new Map()
+  this.tail.prev = this.head
+  this.head.next = this.tail
 };
 
 /**
  * @param {number} key
  * @return {number}
  */
-LRUCache.prototype.get = function (key) {
-  if (!this.map.has(key)) {
-    return -1;
-  }
+LRUCache.prototype.get = function(key) {
+  const node = this.map.get(key)
+  if(!node) return -1
+  
+  const prev = node.prev
+  const next = node.next
+  prev.next = next
+  next.prev = prev
 
-  let node = this.map.get(key);
+  node.prev = this.head
+  node.next = this.head.next
 
-  let prev = node.prev;
-  let next = node.next;
-  prev.next = next;
-  next.prev = prev;
+  this.head.next.prev = node
+  this.head.next = node
 
-  node.prev = this.head;
-  node.next = this.head.next;
-  this.head.next = node;
-
-  return node.value;
+  return node.val
 };
+
 
 /**
  * @param {number} key
  * @param {number} value
  * @return {void}
  */
-LRUCache.prototype.put = function (key, value) {
-  if (this.map.has(key)) {
-    let prev = node.prev;
-    let next = node.next;
-    prev.next = node.next;
-    next.prev = node.prev;
-    this.map.delete(key);
-  } else if (this.map.size === this.capacity) {
-    let d = this.tail.prev;
-    let prev = d.prev;
-    prev.next = this.tail;
-    this.tail.prev = prev;
-    this.map.delete(d.key);
+LRUCache.prototype.put = function(key, value) {
+  let node = this.map.get(key)
+  let prev, next
+  if(node) {
+    node.val = value
+    prev = node.prev
+    next = node.next
+    prev.next = next
+    next.prev = prev
+    node.next = null
+    node.prev = null
+  } else {
+    if(this.capacity === this.map.size) {
+      const removeNode = this.tail.prev
+      prev = removeNode.prev
+      prev.next = this.tail
+      this.tail.prev = prev
+      removeNode.prev = null
+      removeNode.next = null
+      this.map.delete(removeNode.key)
+    }
   }
-  const node = new Node(key, value);
-  let next = this.head.next;
-  this.head.next = node;
-  next.prev = node;
-  node.prev = this.head;
-  node.next = next;
-  this.map.set(key, node);
+  node = new ListNode(key, value)
+  
+  next = this.head.next
+  
+  node.prev = this.head
+  node.next = next
+  
+  next.prev = node
+  this.head.next = node
+  
+  this.map.set(key, node)
+  return null
 };
 
 /**
@@ -125,23 +137,23 @@ LRUCache.prototype.put = function (key, value) {
 
 let cache = new LRUCache(2);
 
-// cache.put(1, 1);
-// cache.put(2, 2);
-// cache.get(1); // returns 1
-// cache.put(3, 3);
-// cache.get(2); // returns -1 (not found)
-// cache.put(4, 4);
-// cache.get(1); // returns -1 (not found)
-// cache.get(3); // returns 3
-// cache.get(4); // returns 4
-cache.put(1, 1);
-cache.put(2, 2);
-console.log(cache.get(1)); // returns 1
-cache.put(3, 3);
-console.log(cache.get(2)); // returns -1 (not found)
-cache.put(4, 4);
-
-console.log(cache.get(1)); // returns -1 (not found)
-console.log(cache.get(3)); // returns 3
-console.log(cache.get(4)); // returns 4
-console.log('size ', cache.map.size); // returns 4
+// console.log(cache.put(1, 1));
+// console.log(cache.put(2, 2));
+// console.log("1 :: ", cache.get(1));       // returns 1
+// console.log(cache.put(3, 3));    // evicts key 2
+// console.log("-1 :: ", cache.get(2));       // returns -1 (not found)
+// console.log(cache.put(4, 4));    // evicts key 1
+// console.log("-1 :: ", cache.get(1));       // returns -1 (not found)
+// console.log("3 :: ", cache.get(3));       // returns 3
+// console.log("4 ::", cache.get(4));       // returns 4
+// ["LRUCache","put","put","get","get","put","get","get","get"]
+// [[2],       [2,1],[3,2],[3],  [2],[4,3],  [2],[3],[4]]
+// debugger
+cache.put(2,1)
+cache.put(3,2)
+console.log("2 :: ", cache.get(3))
+console.log("1 :: ", cache.get(2))
+cache.put(4,3)
+console.log("1 :: ", cache.get(2))
+console.log("-1 :: ", cache.get(3))
+console.log("3 :: ", cache.get(4))
