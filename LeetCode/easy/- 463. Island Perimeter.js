@@ -203,54 +203,102 @@ move to all adjacent 1's in order
 //   return total
 // };
 
+// var islandPerimeter = function(grid) {
+//   let total = 0
+//   const set = new Set()
+//   const q = []
+  
+//   function callback(i,j,condition) {
+//     if(!set.has(`${i}${j}`)) {
+//       if (condition) {
+//         return 1
+//       } else {
+//         q.push([i,j])
+//       }
+//     }
+//     return 0
+//   }
+
+//   function helper() {
+//     let sum = 0
+
+//     while(q.length) {
+//       const [i,j] = q.pop()
+//       set.add(`${i}${j}`)
+      
+//       sum += callback(i-1,j,(i === 0 || grid[i-1][j] === 0)) // top
+//       sum += callback(i,j+1,(j === grid[0].length-1 || grid[i][j+1] === 0)) // right
+//       sum += callback(i+1,j,(i === grid.length-1 || grid[i+1][j] === 0)) // down
+//       sum += callback(i,j-1,(j === 0 || grid[i][j-1] === 0)) // left
+//     }
+//     return sum
+//   }
+
+//   let i=0
+//   let j=0
+//   let found = false
+//   while(i<grid.length) {
+//     if(found) break
+//     while(j<grid[i].length) {
+//       if(grid[i][j] === 1) {
+//         q.push([i,j])
+//         total = helper()
+//         found = true
+//         break;
+//       }
+//       j++
+//     }
+//     i++
+//   }
+//   return total
+// };
+
 var islandPerimeter = function(grid) {
   let total = 0
   const set = new Set()
-  const q = []
   
-  function callback(i,j,condition) {
-    if(!set.has(`${i}${j}`)) {
-      if (condition) {
-        return 1
-      } else {
-        q.push([i,j])
-      }
+  function helper(i,j) {
+    // if(i < 0 || i > grid.length-1 || j < 0 || j > grid[0].length-1) return 1
+    
+    if(set.has(`${i}${j}`)) return 0
+    set.add(`${i}${j}`)
+    
+    let res = 0
+
+    if(i > 0 && grid[i-1][j] === 1) {
+      res += helper(i-1,j)
+    } else {
+      res++
     }
-    return 0
-  }
-
-  function helper() {
-    let sum = 0
-
-    while(q.length) {
-      const [i,j] = q.pop()
-      set.add(`${i}${j}`)
-      
-      sum += callback(i-1,j,(i === 0 || grid[i-1][j] === 0)) // top
-      sum += callback(i,j+1,(j === grid[0].length-1 || grid[i][j+1] === 0)) // right
-      sum += callback(i+1,j,(i === grid.length-1 || grid[i+1][j] === 0)) // down
-      sum += callback(i,j-1,(j === 0 || grid[i][j-1] === 0)) // left
+    if(i < grid.length-1 && grid[i+1][j] === 1) {
+      res += helper(i+1,j)
+    } else {
+      res++
     }
-    return sum
+    if(j > 0 && grid[0][j-1] === 1) {
+      res += helper(i,j-1)
+    } else {
+      res++
+    }
+    if(j < grid[0].length-1 && grid[i][j+1] === 1) {
+      res += helper(i,j+1)
+    } else {
+      res++
+    }
+    return res
   }
-
   let i=0
   let j=0
   let found = false
   while(i<grid.length) {
-    if(found) break
     while(j<grid[i].length) {
       if(grid[i][j] === 1) {
-        q.push([i,j])
-        total = helper()
-        found = true
-        break;
+        return helper(i,j)
       }
       j++
     }
     i++
   }
-  return total
 };
 
 let cases = [

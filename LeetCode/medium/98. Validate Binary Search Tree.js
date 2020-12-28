@@ -75,18 +75,28 @@ recurse left and right
 //   return true;
 // };
 
-var isValidBST = function(root, min = null, max = null) {
-  if(!root) return true
+// var isValidBST = function(root, min = null, max = null) {
+//   if(!root) return true
   
-  if(min && min >= root.val) return false
-  if(max && max <= root.val) return false
+//   if(min && min >= root.val) return false
+//   if(max && max <= root.val) return false
   
-  // if(root.left && (!isValidBST(root.left, min, max? max:root.val) || root.left.val >= root.val)) return false
-  // if(root.right && (!isValidBST(root.right, min?min:root.val, max) || root.right.val <= root.val)) return false
-  if(root.left && (!isValidBST(root.left, min, root.val) || root.left.val >= root.val)) return false
-  if(root.right && (!isValidBST(root.right, root.val, max) || root.right.val <= root.val)) return false
+//   if(root.left && (!isValidBST(root.left, min, root.val) || root.left.val >= root.val)) return false
+//   if(root.right && (!isValidBST(root.right, root.val, max) || root.right.val <= root.val)) return false
   
-  return true
+//   return true
+// };
+
+var isValidBST = function(root, max = null, min = null) {
+  if (!root) return true
+
+  if(max && root.val >= max) return false
+  if(min && root.val <= min) return false
+  
+  if(root.left && root.left.val >= root.val) return false    
+  if(root.right && root.right.val <= root.val) return false
+  
+  return isValidBST(root.left, root.val, min) && isValidBST(root.right, max, root.val)
 };
 
 let l = new TreeNode(2);
