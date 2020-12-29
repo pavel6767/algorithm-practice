@@ -62,62 +62,38 @@ t
 s
   O(3n+k -> n+k -> n)
  */
-var removeDuplicates = function (s, k) {
-  //3n+k
-  let occur = 0;
 
-  const stack = [];
-  const peek = () => stack[stack.length - 1];
+const removeDuplicates = function(s, k) {
+  const stack = []
+  const peek = () => stack[stack.length-1]
 
-  for (let i = 0; i < s.length; i++) {
-    if (stack.length === 0) {
-      stack.push(s[i]);
-      occur++;
+  for(let char of s) {
+    if(!stack.length) {
+      stack.push([char,1])
     } else {
-      if (occur === k) {
-        while (occur > 0) {
-          stack.pop();
-          occur--;
-        }
-
-        i--;
-        occur = 0;
-
-        if (stack.length === 0) continue;
-
-        occur++;
-        let temp = [stack.pop()];
-        while (temp[0] === peek()) {
-          temp.push(stack.pop());
-          occur++;
-        }
-        while (temp.length > 0) {
-          stack.push(temp.pop());
-        }
+      if(char === peek()[0]) {
+        stack[stack.length-1][1]++
       } else {
-        if (s[i] === peek()) {
-          occur++;
-        } else {
-          occur = 1;
-        }
-
-        stack.push(s[i]);
+        stack.push([char,1])
       }
+      if (peek()[1] === k) stack.pop()
     }
   }
+  
+  if (stack.length && peek()[1] === k) stack.pop()
 
-  if (occur === k) {
-    while (occur > 0) {
-      stack.pop();
-      occur--;
-    }
-  }
-
-  let res = [];
-  while (stack.length > 0) {
-    res.push(stack.pop());
-  }
-  return res.reverse().join('');
+  return stack.reduce((acc, curr) => acc+curr[0].repeat(curr[1]), "")
 };
 
-module.exports = removeDuplicates;
+const cases = [
+  { in: 'abcd', in2: 2, out: 'abcd' },
+  { in: 'deeedbbcccbdaa', in2: 3, out: 'aa' },
+  { in: 'pbbcggttciiippooaais', in2: 2, out: 'ps' },
+  { in: 'nnwssswwnvbnnnbbqhhbbbhmmmlllm', in2: 3, out: 'vqm' },
+  { in: 'aaaaaaa', in2: 3, out: 'a' },
+];
+
+const tester = require('../tester');
+tester.twoInput(cases, removeDuplicates);
+
+module.exports = removeDuplicates
